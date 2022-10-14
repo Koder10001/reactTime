@@ -1,16 +1,45 @@
 var timeOut;
+
+var arr = [];
+var min = Infinity;
+var max = -1;
+var ended = 1;
+var showTime;
+
 function start() {
-    document.getElementById("circle").classList.add("green");
-    let showTime = new Date().getTime();
-    let clickTime = null;
-    document.body.addEventListener("click",()=>{
-        clearTimeout(timeOut);
-        clickTime = new Date().getTime();
-        document.getElementById("result").innerText = (clickTime - showTime) + "ms";
-        document.getElementById("circle").classList.remove("green");
-        let time = randomTime();
-        timeOut = setTimeout(start,time);
-    })
+    document.body.classList.add("change");
+    showTime = Date.now();
+    ended = 0;
+}
+
+document.body.onclick = ()=>{
+    if(!ended){
+        ended = 1;
+        let ms = Date.now() - showTime;
+        showResult(ms);
+        document.body.classList.remove("change");
+        timeOut = setTimeout(start,randomTime());
+    }
+};
+
+function showResult(ms){
+    arr.push(ms)
+    if(ms < min){
+        min = ms;
+    }
+
+    if (ms > max){
+        max = ms;
+    }
+
+    let average = Math.round((arr.reduce((last,cur)=>{ return last + cur },0) / arr.length));
+
+    let result = `Time: ${ms} ms\n
+                Count: ${arr.length}\n
+                Min: ${min} ms\n
+                Max: ${max} ms\n
+                Average: ${average} ms`;
+    document.getElementById("result").innerText = result;
 }
 
 function randomTime() {
@@ -18,6 +47,5 @@ function randomTime() {
 }
 
 window.onload = ()=>{
-    let time = randomTime();
-    timeOut = setTimeout(start,time);
+    timeOut = setTimeout(start,randomTime());
 }

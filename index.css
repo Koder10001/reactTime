@@ -14,10 +14,11 @@ body{
 
 #result {
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 0;
     right: 0;
     text-align: center;
+    font-weight: bold;
     color: #eff5f7;
 }
 
@@ -29,12 +30,7 @@ body{
     max-width: 100px;
     max-height: 100px;
     background-color: #eff5f7;
-    transition-duration: 50ms;
 }
-.green {
-    background-color: #14cdc8 !important;
-    min-width: 125px !important;
-    min-height: 125px !important;
-    max-width: 125px !important;
-    max-height: 125px !important;
+.change {
+    background-color: #5a228b !important;
 }
